@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- Css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/font-awesome/css/all.css">
+    <!-- DataTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+    <link rel="icon" href="assets/img/virus.svg" type="image/x-icon">
+    <title>Covid-19</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm sticky-top">
+        <div class="container-lg">
+            <a href="index.html" class="navbar-brand">Covid Tracker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active" aria-current="page">ประเทศไทย</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#chartTH" class="nav-link">กราฟ</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a href="#chartWorld" class="nav-link">ทั่วโลก</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-white bg-dark">
+        <div class="container-lg h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-5 header-text">
+                    <h5>ยืนยันตัวเลขผู้ติดเชื้อ</h5>
+                    <h1>COVID-19</h1>
+                    <h5>ทั้งหมดในประเทศไทย</h5>
+                </div>
+                <div class="position-absolute w-50 d-none d-lg-block" id="covid-home"></div>
+                <div class="col-lg-7">
+                    <div class="row px-1">
+                        <span class="font-style" id="Update"></span>
+                        <div class="col-12 nopadding">
+                            <div class="card card-1">
+                                <div class="py-4 px-5">
+                                    <div class="row d-flex justify-content-between">
+                                        <div>
+                                            ผู้ติดเชื้อสะสม
+                                            <div class="status p-2 mt-3">
+                                                <span id="sConfirmed"></span>
+                                                <span id="NewConfirmed"></span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h1 id="Confirmed"></h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 px-1">
+                        <div class="col nopadding">
+                            <div class="card card-2">
+                                <div class="py-4 px-3">
+                                    <div class="card-title">
+                                        กำลังรักษา
+                                    </div>
+                                    <h1 id="Hospitalized"></h1>
+                                    <div class="status p-2">
+                                        <span id="sHospitalized"></span>
+                                        <span id="NewHospitalized"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card card-3">
+                                <div class="py-4 px-3">
+                                    <div class="card-title">
+                                        หายแล้ว
+                                    </div>
+                                    <h1 id="Recovered"></h1>
+                                    <div class="status p-2">
+                                        <span id="sRecovered"></span>
+                                        <span id="NewRecovered"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col nopadding">
+                            <div class="card card-4">
+                                <div class="py-4 px-3">
+                                    <div class="card-title">
+                                        เสียชีวิต
+                                    </div>
+                                    <h1 id="Deaths"></h1>
+                                    <div class="status p-2">
+                                        <span id="sDeaths"></span>
+                                        <span id="NewDeaths"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="bg-light" id="chartTH">
+        <div class="container-lg">
+            <div class="row between-row pt-5">
+                <div class="">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="mx-3 head-font">
+                            <span class="h1">แนวโน้มการติดเชื้อ</span>
+                            <p>ในประเทศไทย</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="score d-none d-md-block">
+                    <div class="row">
+                        <div class="colunm">
+                            <label for="">ผู้ติดเชื้อ</label>
+                            <h4 id="confirmeds"></h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">กำลังรักษา</label>
+                            <h4 id="hospitalizeds"></h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">หายแล้ว</label>
+                            <h4 id="recovereds"></h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">เสียชีวิต</label>
+                            <h4 id="deaths"></h4>
+                        </div>
+                    </div>
+                    <span id="ChartUpdate"></span>
+                </div>
+                <div class="tab-content">
+                    <div id="Tab1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="Tab1-tab">
+                        <canvas class="my-4 w-100" id="Chart_TH" width="900" height="380"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="bg-dark text-white" id="chartWorld">
+        <div class="container-lg">
+            <div class="row between-row pt-5">
+                <div class="">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="mx-3 head-font">
+                            <span class="h1">แนวโน้มการติดเชื้อ</span>
+                            <p>ทั้งหมดทั่วโลก</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="score d-none d-md-block">
+                    <div class="row">
+                        <div class="colunm">
+                            <label for="">ผู้ติดเชื้อ</label>
+                            <h4>20000</h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">กำลังรักษา</label>
+                            <h4>20000</h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">หายแล้ว</label>
+                            <h4>20000</h4>
+                        </div>
+                        <div class="colunm">
+                            <label for="">เสียชีวิต</label>
+                            <h4>20000</h4>
+                        </div>
+                    </div>
+                    <span id="ChartUpdate"></span>
+                </div>
+                <canvas class="my-4 w-100" id="Chart_World" width="900" height="380"></canvas>
+            </div>
+        </div>
+    </section> -->
+
+    <footer class="bgFooter">
+        <div class="container-lg d-flex justify-content-center align-items-center">
+            <span>แหล่งข้อมูล API จาก : </span>
+            <a target="_blank" href="https://covid19.ddc.moph.go.th/th/api">
+                <img src="assets/img/textLogo.png" alt="" class="img-footer">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#TablePage').DataTable();
+        });
+    </script>
+
+    <!-- Font Awesome -->
+    <script defer src="/assets/font-awesome/js/all.js"></script>
+    <!-- JavaScript -->
+    <script type="text/javascript" src="assets/js/data_covid.js"></script>
+    <script type="text/javascript" src="assets/js/TableData.js"></script>
+    <script type="text/javascript" src="assets/js/dataCovid_w.js"></script>
+    <script type="text/javascript" src="assets/js/ChartJs.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <!-- Lottie -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js"
+        integrity="sha512-0bCDSnaX8FOD9Mq8WbHcDwshXwCB5V4EP+UBu87WQgga2b7lAsuEbaSmIZjH/XEmNhJuhrPbFHemre5HZwrk9w=="
+        crossorigin="anonymous"></script>
+    <!-- Animation in Lottie -->
+    <script src="assets/js/app.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
