@@ -33,10 +33,10 @@ fetch("https://covid19.th-stat.com/api/open/today")
       recovereds.innerHTML = comma(data.Recovered);
       death.innerHTML = comma(data.Deaths);
 
-      NewConfirmed.innerHTML = Math.abs(comma(data.NewConfirmed));
-      NewHospitalized.innerHTML = Math.abs(comma(data.NewHospitalized));
-      NewRecovered.innerHTML = Math.abs(comma(data.NewRecovered));
-      NewDeaths.innerHTML = Math.abs(comma(data.NewDeaths));
+      NewConfirmed.innerHTML = comma(Math.abs(data.NewConfirmed));
+      NewHospitalized.innerHTML = comma(Math.abs(data.NewHospitalized));
+      NewRecovered.innerHTML = comma(Math.abs(data.NewRecovered));
+      NewDeaths.innerHTML = comma(Math.abs(data.NewDeaths));
 
       status(data.NewConfirmed, sConfirmed);
       status(data.NewHospitalized, sHospitalized);
